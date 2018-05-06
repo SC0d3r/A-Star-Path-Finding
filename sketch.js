@@ -2,12 +2,12 @@ const rows = 30,
   cols = 30;
 const grid = new Grid(rows, cols);
 grid.get(0).isStart = true;
-
+let goalCell;
 function setup() {
   createCanvas(800, 600);
-
   const startCell = grid.get(0);
-  const goalCell = makeRandomGoal(grid);
+  goalCell = makeRandomGoal(grid);
+  makeRandomWall(grid);
   // console.log(heuristic_cost_estimate(startCell , goalCell , cols))
   console.log(startCell, goalCell);
   aStar(startCell, goalCell, grid);
@@ -52,7 +52,11 @@ function paintCells(grid) {
 
 
 function cellColorFactory(cell) {
+  if (cell.isWall)
+    return '#a534a2';
   if (cell.isSeen && cell.isGoal)
+    return 'red';
+  if (cell.isGoal)
     return 'red';
   if (cell.isStart)
     return 'yellow';
@@ -60,10 +64,6 @@ function cellColorFactory(cell) {
     return 'blue';
   if (cell.isSeen)
     return '#9d6a4c';
-  if (cell.isWall)
-    return '#253452';
-  if (cell.isGoal)
-    return 'red';
 
   //default 
   return '#000000';
@@ -76,4 +76,16 @@ function makeRandomGoal(grid) {
   const rCell = grid.get(rIndex);
   rCell.isGoal = true;
   return rCell;
+}
+
+
+function makeRandomWall(grid) {
+  const howManyCells = grid.cols * grid.rows;
+  const howManyWalls = floor(random(howManyCells / 2));
+  for (let i = 0; i < howManyWalls; i++) {
+    const rIndex = floor(random(howManyCells));
+    if(rIndex === 0 || rIndex === goalCell.index) continue;
+    const rCell = grid.get(rIndex);
+    rCell.isWall = true;
+  }
 }
