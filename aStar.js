@@ -43,6 +43,7 @@ function aStar(startCell, goalCell, grid) {
 
     for (let neighbor of currentCellNeighbors) {
       if (neighbor instanceof BoundryCell) continue;
+      if(neighbor.isWall) continue;
       if (closedSet[neighbor.index] !== undefined)
         continue;		// Ignore the neighbor which is already evaluated.
       neighbor.isSeen = true;
@@ -101,27 +102,8 @@ function heuristic_cost_estimate(fromCell, toCell, gridCols) {
 }
 
 function reconstruct_path(cameFrom, currentCell) {
-  // const currentCellNeighbors = currentCell.neighbors();
-  // console.log('-------')
-  // console.log(currentCell);
-  // console.log(currentCellNeighbors);
-  // console.log('\n\n');
-  // return;
-  // for (let neighbor of currentCellNeighbors) {
-  //   if(neighbor instanceof BoundryCell) continue;
-  //   if(neighbor.isPath) continue;
-  //   if(neighbor.isGoal) continue;
-  //   const cell = cameFrom[neighbor.index];
-  //   console.log(cell);
-  //   if (cell) {
-  //     neighbor.isPath = true;
-  //     if (neighbor.isStart) return;
-  //     return reconstruct_path(cameFrom, neighbor);
-  //   }
-  // }
-  const keys = Object.keys(cameFrom);
-  for (let key of keys) {
-    const cell = cameFrom[key];
-    cell.isPath = true;
+  while (cameFrom[currentCell.index]) {
+    currentCell = cameFrom[currentCell.index];
+    currentCell.isPath = true;
   }
 }
