@@ -17,10 +17,10 @@ class Grid {
       this._cells.push(newCell);
     }
 
-    // connect cells to their neighbors
-
-    //bcell is for boundries of grid
+    //bcell is for boundries of grid (for avoiding undefined)
     const bCell = new BoundryCell(-1);
+    
+    // connect cells to their neighbors
     for (let i = 0; i < n; i++) {
       const cell = this._cells[i];
       const [cellRow, cellCol] = calcCellRC(i, this.cols);
@@ -41,6 +41,7 @@ function calcCellRC(index, cols) {
   const col = index % cols;
   return [row, col];
 }
+
 function toIndex(row, col, cols) {
   if (row < 0 || col < 0) return -1;
   if (col >= cols) return -1;
