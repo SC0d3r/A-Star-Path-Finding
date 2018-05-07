@@ -1,0 +1,87 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+
+
+.info {
+  text-align: center;
+}
+
+.info>div {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  transform: translateY(20%);
+}
+
+.info .seen {
+  background: #9d6a4c;
+}
+
+.info .path {
+  background: blue;
+}
+
+.info .goal {
+  background: red;
+}
+
+.info .start {
+  background: yellow;
+}
+
+.info .wall {
+  background: #a534a2;
+}
+
+.settings {
+  display: inline-block;
+  min-width: 200px;
+  text-align: center;
+  margin-left: 10px;
+  border-left: 3px groove slategrey;
+  border-right: 3px groove slategrey;
+
+}
+
+.settings h2 {
+  background-color: dimgrey;
+  color: cornsilk;
+  text-align: center;
+}
+
+.settings .grid-size {
+  padding: 20px;
+}
+
+.settings .grid-size .grid-size-info {
+  transform: translateX(-10%);
+  padding: 5px;
+}
+
+.settings .grid-size .grid-size-info>span:first-child {
+  color: red;
+}
+
+.settings .grid-size .grid-size-info {
+  font-size: 0.8em;
+
+}
+
+#applyBtn {
+  padding: 8px;
+  width: 100%;
+  display: block;
+  margin: auto;
+  margin-top: 25px;
+}
