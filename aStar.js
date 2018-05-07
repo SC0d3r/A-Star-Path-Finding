@@ -27,6 +27,7 @@ function aStar(startCell, goalCell, grid) {
 
 
   while (Object.keys(openSet).length > 0) {
+    
     const cellIndexWithLowestFScore = lowestFScore(openSet, fScore);
 
     const currentCell = grid.get(cellIndexWithLowestFScore);
@@ -42,10 +43,13 @@ function aStar(startCell, goalCell, grid) {
     const currentCellNeighbors = currentCell.neighbors();// returns [top , right , bottom , left]
 
     for (let neighbor of currentCellNeighbors) {
+
       if (neighbor instanceof BoundryCell) continue;
       if(neighbor.isWall) continue;
+
       if (closedSet[neighbor.index] !== undefined)
         continue;		// Ignore the neighbor which is already evaluated.
+
       neighbor.isSeen = true;
       if (openSet[neighbor.index] === undefined)	// Discover a new node
         openSet[neighbor.index] = neighbor;
@@ -63,7 +67,7 @@ function aStar(startCell, goalCell, grid) {
     }
   }
 
-  return new Error("Couldn't find any path");
+  return new Error("Ooops");
 }
 
 function lowestFScore(openSets, fScores) {
@@ -72,7 +76,6 @@ function lowestFScore(openSets, fScores) {
   let lowestKey = undefined;
   for (let key of keys) {
     const score = fScores[key];
-    // console.log(key,score);
     if (score <= lowestVal) {
       lowestVal = score;
       lowestKey = key;
@@ -80,6 +83,7 @@ function lowestFScore(openSets, fScores) {
   }
   return lowestKey;
 }
+
 function initScores(howManyCells) {
   const scores = {};
   for (let i = 0; i < howManyCells; i++) {
@@ -87,14 +91,15 @@ function initScores(howManyCells) {
   }
   return scores;
 }
+
 function dist_between(fromCell, toNeighbor) {
   return 1;
 }
+
 function heuristic_cost_estimate(fromCell, toCell, gridCols) {
   const [x0, y0] = calcCellRC(fromCell.index, gridCols);
   const [x1, y1] = calcCellRC(toCell.index, gridCols);
-  // console.log(x0,y0);
-  // console.log(x1,y1);
+  
   const deltaX = x1 - x0;
   const deltaY = y1 - y0;
 
