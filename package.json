@@ -1,0 +1,19 @@
+{
+  "name": "A-star",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://SC0d3r.github.io/A-Star-Path-Finding",
+  "scripts": {
+    "deploy": "gh-pages -d ."
+  },
+  "main": "index.js",
+  "keywords": [
+    "aStar",
+    "algorithm"
+  ],
+  "author": "SC0d3r",
+  "license": "MIT",
+  "devDependencies": {
+    "gh-pages": "^3.2.1"
+  }
+}

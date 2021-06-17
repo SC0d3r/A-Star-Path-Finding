@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A Star Algorithm</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
+  <script src="aStar.js"></script>
+  <script src="animate-aStar.js"></script>
+  <script src="cell.js"></script>
+  <script src="grid.js"></script>
+  <script src="sketch.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="info">
+    [
+    <div class="start"></div> Start] &nbsp;[
+    <div class="goal"></div> Goal] &nbsp;[
+    <div class="path"></div> Path] &nbsp;[
+    <div class="seen"></div> Seen] &nbsp;[
+    <div class="wall"></div> Wall]
+  </div>
+  <div class="settings">
+    <h2>Settings</h2>
+    <div class="grid-size">
+      <input type="range" value='10' min='5' max='30' oninput="changeGridSizeInfoText(this.value)">
+      <div class="grid-size-info">
+        <span>*&nbsp;</span>
+        <span>Grid size [10]</span>
+      </div>
+    </div>
+
+    <div class="animate">
+      <input type="checkbox" checked onchange="onAnimateChange(this.checked)"> Animate
+    </div>
+    <button id='applyBtn' onclick="applyGrid()">Apply</button>
+  </div>
+
+  <script>
+    window.onload = function () {
+      const gridVal = localStorage.getItem('__gridRows__');
+      document.querySelector('.grid-size > input').value = gridVal;
+      changeGridSizeInfoText(gridVal);
+
+      const isAnimateChecked = localStorage.getItem('__shouldAnimate__') === 'true';
+      document.querySelector('.animate > input').checked = isAnimateChecked;
+    }
+
+    function changeGridSizeInfoText(val) {
+      document.querySelector('.grid-size-info > span:last-child').innerHTML =
+        `Grid size [${val}]`;
+    }
+
+    function applyGrid() {
+      const val = document.querySelector('.grid-size > input').value;
+      localStorage.setItem('__gridRows__', val);
+      localStorage.setItem('__gridCols__', val);
+      restart();
+    }
+
+
+    function onAnimateChange(isChecked) {
+      localStorage.setItem('__shouldAnimate__', isChecked);
+      restart();
+    }
+
+    function restart() {
+      location.href = ''; // restart the browser window
+    }
+  </script>
+</body>
+
+</html>
